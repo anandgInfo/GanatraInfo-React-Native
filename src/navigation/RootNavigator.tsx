@@ -12,7 +12,7 @@ import API_URL from "../config";
 import { About } from "./screens/About";
 import Services from "./screens/Services";
 import AddCounter from "./screens/AddCounter";
-import Tracker from "./screens/Tracker";
+import CounterDetails from "./screens/CounterDetails";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -40,7 +40,7 @@ function HomeDrawer() {
     About: About,
     Services: Services,
     Counter: AddCounter,
-    Tracker: Tracker,
+    Time: CounterDetails,
   };
 
   useEffect(() => {
