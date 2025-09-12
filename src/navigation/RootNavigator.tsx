@@ -11,6 +11,8 @@ import { NotFound } from "./screens/NotFound";
 import API_URL from "../config";
 import { About } from "./screens/About";
 import Services from "./screens/Services";
+import AddCounter from "./screens/AddCounter";
+import Tracker from "./screens/Tracker";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -37,6 +39,8 @@ function HomeDrawer() {
     NotFound: NotFound,
     About: About,
     Services: Services,
+    Counter: AddCounter,
+    Tracker: Tracker,
   };
 
   useEffect(() => {
@@ -87,12 +91,7 @@ function HomeDrawer() {
         const ScreenComponent = screenMap[item.url] || Dashboard;
 
         return (
-          <Drawer.Screen
-            key={item.id}
-            name={item.url}
-            component={ScreenComponent}
-            options={{ title: item.label }}
-          />
+          <Drawer.Screen key={item.id} name={item.url} component={ScreenComponent} options={{ title: item.label }} />
         );
       })}
     </Drawer.Navigator>
