@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Ganatrainfo-react-native",
+    "slug": "Ganatrainfo-react-native",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/logo-short.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "scheme": "ganatrainforeactnative",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ganatrainforeactnative"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo-short.png"
+      },
+      "package": "com.ganatrainforeactnative"
+    },
+    "web": {
+      "favicon": "./assets/logo-short.png"
+    },
+    "plugins": [
+      "expo-asset",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/logo-short.png"
+        }
+      ],
+      "react-native-edge-to-edge"
+    ]
+  }
+}
