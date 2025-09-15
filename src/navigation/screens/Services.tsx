@@ -1,35 +1,74 @@
-// Services.tsx
-import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Image, useWindowDimensions } from "react-native";
+import axios from "axios";
+import API_URL from "src/config";
 
 interface Service {
   id: string;
-  title: string;
+  name: string;
   description: string;
-  icon: keyof typeof MaterialIcons.glyphMap;
+  logo_url: string;
 }
 
-const servicesData: Service[] = [
-  { id: "1", title: "Web Development", description: "Responsive websites and web apps", icon: "web" },
-  { id: "2", title: "Mobile App Development", description: "iOS & Android apps", icon: "phone-android" },
-  { id: "3", title: "UI/UX Design", description: "Beautiful and user-friendly designs", icon: "design-services" },
-  { id: "4", title: "SEO Services", description: "Improve your website ranking", icon: "trending-up" },
-];
-
 const Services: React.FC = () => {
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const { width } = useWindowDimensions();
+
+  const isWeb = width >= 768;
+  const cardWidth = isWeb ? (width - 80) / 3 : width - 40;
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/services`);
+        setServices(response.data.data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load services");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+        <ActivityIndicator size="large" color="#4A90E2" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+        <Text style={{ color: "red" }}>{error}</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.heading}>Our Services</Text>
-      {servicesData.map((service) => (
-        <View key={service.id} style={styles.card}>
-          <MaterialIcons name={service.icon} size={40} color="#4A90E2" />
-          <View style={styles.textContainer}>
-            <Text style={styles.title}>{service.title}</Text>
-            <Text style={styles.description}>{service.description}</Text>
+      <View style={styles.cardsContainer}>
+        {services.map((service) => (
+          <View key={service.id} style={[styles.card, { width: cardWidth }]}>
+            <Image
+              source={{ uri: service.logo_url }}
+              style={{ width: 40, height: 40, borderRadius: 5 }}
+              resizeMode="contain"
+            />
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>{service.name}</Text>
+              <Text style={styles.description}>{service.description}</Text>
+            </View>
           </View>
-        </View>
-      ))}
+        ))}
+      </View>
     </ScrollView>
   );
 };
@@ -44,6 +83,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 20,
+  },
+  cardsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
   card: {
     flexDirection: "row",
@@ -60,6 +104,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginLeft: 15,
+    flex: 1,
   },
   title: {
     fontSize: 18,

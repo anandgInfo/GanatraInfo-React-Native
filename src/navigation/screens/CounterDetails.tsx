@@ -15,7 +15,7 @@ const CounterDetails = () => {
       }
     };
     loadData();
-    const interval = setInterval(loadData, 1000); // update every second
+    const interval = setInterval(loadData, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -25,7 +25,6 @@ const CounterDetails = () => {
     return date.toLocaleDateString("en-US", options);
   };
 
-  // Convert seconds to days, hours, minutes, seconds
   const getTime = (totalSeconds: number) => {
     const days = Math.floor(totalSeconds / 86400);
     totalSeconds %= 86400;
@@ -92,28 +91,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#111827",
   },
-  subText: {
-    fontSize: 18,
-    color: "#555",
-    marginTop: 5,
-  },
-  date: {
-    fontSize: 14,
-    color: "#555",
-    marginTop: 10,
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#111827",
-    marginTop: 5,
-  },
-  noData: {
-    fontSize: 18,
-    color: "#fff",
-    textAlign: "center",
-    marginTop: 50,
-  },
+  subText: { fontSize: 18, color: "#555", marginTop: 5 },
+  date: { fontSize: 14, color: "#555", marginTop: 10 },
+  name: { fontSize: 20, fontWeight: "bold", color: "#111827", marginTop: 5 },
+  noData: { fontSize: 18, color: "#fff", textAlign: "center", marginTop: 50 },
 });
 
 export default CounterDetails;

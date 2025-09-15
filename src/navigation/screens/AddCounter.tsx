@@ -126,7 +126,7 @@ const AddCounter = () => {
                 {mode === "countdown" && (
                     <View style={{ width: "100%" }}>
                         {Platform.OS === "web" ? (
-                            <input type="datetime-local" value={date.toISOString().slice(0, 16)} onChange={(e) => setDate(new Date(e.target.value))} style={{ width: "100%", padding: 10, borderRadius: 10, border: "1px solid #ccc" }} />
+                            <input type="datetime-local" value={date.toISOString().slice(0, 16)} onChange={(e) => setDate(new Date(e.target.value))} style={{ width: "93%", padding: 10, borderRadius: 10, border: "1px solid #ccc" }} />
                         ) : (
                             <>
                                 {showPicker && <DateTimePicker value={date} mode="date" display="default" onChange={handleDateChange} minimumDate={new Date()} />}

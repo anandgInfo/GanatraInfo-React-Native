@@ -19,7 +19,6 @@ const RootStack = createNativeStackNavigator({
       options: {
         header: () => (
           <Header/>
-
         ),
       },
     },
