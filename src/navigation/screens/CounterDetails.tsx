@@ -31,7 +31,7 @@ const CounterDetails = () => {
 
     const hours = Math.floor(totalSeconds / 3600);
     totalSeconds %= 3600;
-
+    
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
 
@@ -41,13 +41,10 @@ const CounterDetails = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {Object.keys(counters).length === 0 && <Text style={styles.noData}>No counters saved.</Text>}
-
       {Object.keys(counters).map((name) => {
         const data = counters[name];
         if (data.mode !== "countup") return null;
-
         const { days, hours, minutes, seconds } = getTime(data.timer);
-
         const index = Object.keys(counters).indexOf(name);
         const bgColor = index % 2 === 0 ? ["#FFB6B9", "#FFDEE9"] : ["#C7CEEA", "#E0E4FF"];
 
@@ -86,11 +83,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 5,
   },
-  bigNumber: {
-    fontSize: 36,
-    fontWeight: "bold",
-    color: "#111827",
-  },
+  bigNumber: { fontSize: 36, fontWeight: "bold", color: "#111827" },
   subText: { fontSize: 18, color: "#555", marginTop: 5 },
   date: { fontSize: 14, color: "#555", marginTop: 10 },
   name: { fontSize: 20, fontWeight: "bold", color: "#111827", marginTop: 5 },

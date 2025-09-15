@@ -48,7 +48,6 @@ const AddCounter = () => {
         }
     };
 
-
     const saveCounter = async () => {
         if (!name.trim()) return;
         try {
@@ -104,20 +103,22 @@ const AddCounter = () => {
         return `${h}:${m}:${s}`;
     };
 
+    const formatDateForInput = (date: any) => {
+        const pad = (n: any) => String(n).padStart(2, "0");
+        const year = date.getFullYear();
+        const month = pad(date.getMonth() + 1);
+        const day = pad(date.getDate());
+        const hours = pad(date.getHours());
+        const minutes = pad(date.getMinutes());
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
+
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.card}>
                 <MaterialCommunityIcons name="timer-outline" size={50} color="#007AFF" style={{ marginBottom: 10 }} />
                 <Text style={styles.title}>Add New Counter</Text>
-
-                <TextInput
-                    label="Enter Name"
-                    mode="outlined"
-                    value={name}
-                    onChangeText={handleNameChange}
-                    style={styles.input}
-                />
-
+                <TextInput label="Enter Name" mode="outlined" value={name} onChangeText={handleNameChange} style={styles.input} />
                 <View style={styles.toggleContainer}>
                     <Button mode={mode === "countup" ? "contained" : "outlined"} onPress={() => setMode("countup")} style={[styles.toggleButton, mode === "countup" && styles.activeToggle]}>Countup</Button>
                     <Button mode={mode === "countdown" ? "contained" : "outlined"} onPress={() => setMode("countdown")} style={[styles.toggleButton, mode === "countdown" && styles.activeToggle]}>Countdown</Button>
@@ -126,7 +127,8 @@ const AddCounter = () => {
                 {mode === "countdown" && (
                     <View style={{ width: "100%" }}>
                         {Platform.OS === "web" ? (
-                            <input type="datetime-local" value={date.toISOString().slice(0, 16)} onChange={(e) => setDate(new Date(e.target.value))} style={{ width: "93%", padding: 10, borderRadius: 10, border: "1px solid #ccc" }} />
+                            <input type="datetime-local" value={formatDateForInput(date)} onChange={(e) => setDate(new Date(e.target.value))}
+                                style={{ width: "93%", padding: 10, borderRadius: 10, border: "1px solid #ccc" }} />
                         ) : (
                             <>
                                 {showPicker && <DateTimePicker value={date} mode="date" display="default" onChange={handleDateChange} minimumDate={new Date()} />}

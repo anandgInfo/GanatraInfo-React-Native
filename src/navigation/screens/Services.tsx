@@ -74,47 +74,17 @@ const Services: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: "#f5f5f5",
-  },
-  heading: {
-    fontSize: 28,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  cardsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
+  container: { flex: 1, padding: 20, backgroundColor: "#f5f5f5" },
+  heading: { fontSize: 28, fontWeight: "bold", marginBottom: 20 },
+  cardsContainer: { flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" },
   card: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 15,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
+    flexDirection: "row", alignItems: "center", backgroundColor: "#fff", padding: 15, borderRadius: 10, marginBottom: 15, shadowColor: "#000", shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 5,
-    elevation: 3,
+    shadowRadius: 5, elevation: 3
   },
-  textContainer: {
-    marginLeft: 15,
-    flex: 1,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "600",
-  },
-  description: {
-    fontSize: 14,
-    color: "#555",
-    marginTop: 5,
-  },
+  textContainer: { marginLeft: 15, flex: 1 },
+  title: { fontSize: 18, fontWeight: "600" },
+  description: { fontSize: 14, color: "#555", marginTop: 5 },
 });
 
 export default Services;
