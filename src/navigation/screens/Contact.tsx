@@ -56,7 +56,7 @@ const ContactForm = () => {
                     {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
 
                     <View style={[styles.inputWrapperTextArea, errors.message && styles.inputError]}>
-                        <Icon name="message-text-outline" size={22} color="#6b7280" style={styles.icon} />
+                        <Icon name="message-text-outline" size={22} color="#6b7280" style={[styles.icon, { marginTop: 13 }]} />
                         <TextInput style={[styles.input, styles.textArea]} placeholder="Enter your message" value={message}
                             onChangeText={(text) => {
                                 setMessage(text);
@@ -89,6 +89,5 @@ const styles = StyleSheet.create({
     button: { backgroundColor: "#2563eb", paddingVertical: 15, borderRadius: 12, alignItems: "center", marginTop: 10, shadowColor: "#000", shadowOpacity: 0.1, shadowOffset: { width: 0, height: 3 }, shadowRadius: 5, elevation: 3 },
     buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold", letterSpacing: 0.5 },
 });
-
 
 export default ContactForm;

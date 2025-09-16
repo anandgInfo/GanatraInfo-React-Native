@@ -33,7 +33,7 @@ export const Dashboard = () => {
         <Text style={styles.taskTitle}>Finish React Native Module</Text>
         <Text style={styles.taskDue}>Due: Sep 20, 2025</Text>
       </View>
-      <View style={styles.taskCard}>
+      <View style={styles.taskCard}> 
         <Icon name="checkbox-marked-circle-outline" size={24} color="#4caf50" style={{ marginBottom: 5 }} />
         <Text style={styles.taskTitle}>Prepare Presentation Slides</Text>
         <Text style={styles.taskDue}>Due: Sep 18, 2025</Text>

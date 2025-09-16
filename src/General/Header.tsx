@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuPress }) => {
 
         {isLargeScreen && (
           <ScrollView horizontal showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ flexDirection: "row", justifyContent: "flex-end", flex: 1 }}>
+            contentContainerStyle={{ flexDirection: "row", justifyContent: "center", flex: 1 }}>
 
             {menuItems.map((item) => (
               <TouchableOpacity

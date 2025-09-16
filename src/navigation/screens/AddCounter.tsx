@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { TextInput, Button } from "react-native-paper";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AddCounter = () => {
@@ -61,20 +61,32 @@ const AddCounter = () => {
     };
 
     const handleStartPause = async () => {
-        if (!name.trim()) return alert("Enter a name!");
-        const allDataStr = await AsyncStorage.getItem("counters");
-        const allData = allDataStr ? JSON.parse(allDataStr) : {};
-        let existingTimer = 0;
-        if (allData[name]) {
-            existingTimer = allData[name].timer ?? 0;
+        if (!name.trim()) {
+            alert("Enter a name!");
+            return;
         }
 
-        if (!isRunning) {
-            setTimer((prev) => prev + existingTimer);
-            setIsRunning(true);
-        } else {
-            setIsRunning(false);
-            await saveCounter();
+        try {
+            const allDataStr = await AsyncStorage.getItem("counters");
+            const allData = allDataStr ? JSON.parse(allDataStr) : {};
+
+            if (!isRunning) {
+                setIsRunning(true);
+            } else {
+                setIsRunning(false);
+
+                allData[name] = {
+                    name,
+                    mode,
+                    date: date.toISOString(),
+                    timer,
+                    isRunning: false,
+                };
+
+                await AsyncStorage.setItem("counters", JSON.stringify(allData));
+            }
+        } catch (e) {
+            console.log("Failed to start/pause counter:", e);
         }
     };
 
@@ -116,7 +128,7 @@ const AddCounter = () => {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.card}>
-                <MaterialCommunityIcons name="timer-outline" size={50} color="#007AFF" style={{ marginBottom: 10 }} />
+                <Icons name="timer-outline" size={50} color="#007AFF" style={{ marginBottom: 10 }} />
                 <Text style={styles.title}>Add New Counter</Text>
                 <TextInput label="Enter Name" mode="outlined" value={name} onChangeText={handleNameChange} style={styles.input} />
 
@@ -152,20 +164,10 @@ const AddCounter = () => {
                 </View>
 
                 <View style={styles.actionButtons}>
-                    <Button
-                        icon={isRunning ? "pause" : "play"}
-                        mode="contained"
-                        onPress={handleStartPause}
-                        style={styles.startButton}
-                    >
+                    <Button icon={isRunning ? "pause" : "play"} mode="contained" onPress={handleStartPause} style={styles.startButton} >
                         {isRunning ? "Pause" : "Start"}
                     </Button>
-                    <Button
-                        icon="restart"
-                        mode="outlined"
-                        onPress={handleReset}
-                        style={styles.resetButton}
-                    >
+                    <Button icon="restart" mode="outlined" onPress={handleReset} style={styles.resetButton} >
                         Reset
                     </Button>
                 </View>

@@ -9,7 +9,6 @@ import { Dashboard } from "./screens/Dashboard";
 import { Login } from "src/Authentication/Login";
 import { NotFound } from "./screens/NotFound";
 import API_URL from "../config";
-import { About } from "./screens/About";
 import Services from "./screens/Services";
 import AddCounter from "./screens/AddCounter";
 import CounterDetails from "./screens/CounterDetails";
@@ -38,7 +37,6 @@ function HomeDrawer() {
     Dashboard: Dashboard,
     Login: Login,
     NotFound: NotFound,
-    About: About,
     Services: Services,
     Counter: AddCounter,
     Time: CounterDetails,
