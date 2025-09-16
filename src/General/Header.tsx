@@ -1,16 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-  Dimensions,
-  Image,
-  Linking,
-  Platform,
-} from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Dimensions, Image, Linking, Platform, StatusBar } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
@@ -66,18 +55,12 @@ const Header: React.FC<HeaderProps> = ({ onMenuPress }) => {
           </TouchableOpacity>
         )}
 
-        <Image
-          source={require("@assets/image/logo.png")}
-          style={styles.logo}
-          resizeMode="contain"
-        />
+        <Image source={require("@assets/image/logo.png")} style={styles.logo} resizeMode="contain" />
 
         {isLargeScreen && (
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ flexDirection: "row", justifyContent: "flex-end", flex: 1 }}
-          >
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ flexDirection: "row", justifyContent: "flex-end", flex: 1 }}>
+
             {menuItems.map((item) => (
               <TouchableOpacity
                 key={item.id}
@@ -87,7 +70,9 @@ const Header: React.FC<HeaderProps> = ({ onMenuPress }) => {
 
                   if (item.url.startsWith("http")) Linking.openURL(item.url);
                   else {
-                    const route = item.url.startsWith("/") ? item.url.slice(1) : item.url;
+                    const route = item.url.startsWith("/")
+                      ? item.url.slice(1)
+                      : item.url;
                     navigation.navigate(route as never);
                   }
                 }}
@@ -107,15 +92,9 @@ const Header: React.FC<HeaderProps> = ({ onMenuPress }) => {
 };
 
 const styles = StyleSheet.create({
-  safeArea: { backgroundColor: "#353535" },
-  container: {
-    height: 80,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-  },
-  logo: { height: 50, width: 140 },
+  safeArea: { backgroundColor: "#353535", paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0 },
+  container: { height: 80, flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 10, paddingBottom: 10 },
+  logo: { height: 50, width: 140, alignSelf: "center" },
   iconButton: { width: 50, alignItems: "center" },
 });
 

@@ -13,6 +13,7 @@ import { About } from "./screens/About";
 import Services from "./screens/Services";
 import AddCounter from "./screens/AddCounter";
 import CounterDetails from "./screens/CounterDetails";
+import ContactForm from "./screens/Contact";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -41,6 +42,7 @@ function HomeDrawer() {
     Services: Services,
     Counter: AddCounter,
     Time: CounterDetails,
+    Contact: ContactForm,
   };
 
   useEffect(() => {

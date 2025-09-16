@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Platform, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const CounterDetails = () => {
   const [counters, setCounters] = useState<any>({});
@@ -31,7 +32,7 @@ const CounterDetails = () => {
 
     const hours = Math.floor(totalSeconds / 3600);
     totalSeconds %= 3600;
-    
+
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
 
@@ -44,16 +45,43 @@ const CounterDetails = () => {
       {Object.keys(counters).map((name) => {
         const data = counters[name];
         if (data.mode !== "countup") return null;
+
         const { days, hours, minutes, seconds } = getTime(data.timer);
         const index = Object.keys(counters).indexOf(name);
         const bgColor = index % 2 === 0 ? ["#FFB6B9", "#FFDEE9"] : ["#C7CEEA", "#E0E4FF"];
 
         return (
           <View key={name} style={[styles.card, { backgroundColor: bgColor[0] }]}>
-            <Text style={styles.bigNumber}>{days} Days</Text>
-            <Text style={styles.subText}>{hours}h {minutes}m {seconds}s</Text>
-            <Text style={styles.date}>{formatDate(data.date)}</Text>
-            <Text style={styles.name}>{name}</Text>
+            <View style={styles.row}>
+              <MaterialCommunityIcons name="calendar" size={28} color="#FF5252" style={{ marginRight: 5 }} />
+              <Text style={styles.bigNumber}>{days} Days</Text>
+            </View>
+
+            <View style={styles.row}>
+              <MaterialCommunityIcons name="clock-outline" size={22} color="#FF9800" style={{ marginRight: 5 }} />
+              <Text style={styles.subText}>{hours}h</Text>
+            </View>
+
+            <View style={styles.row}>
+              <MaterialCommunityIcons name="timer-outline" size={22} color="#03A9F4" style={{ marginRight: 5 }} />
+              <Text style={styles.subText}>{minutes}m</Text>
+            </View>
+
+            <View style={styles.row}>
+              <MaterialCommunityIcons name="timer-outline" size={22} color="#8BC34A" style={{ marginRight: 5 }} />
+              <Text style={styles.subText}>{seconds}s</Text>
+            </View>
+
+
+            <View style={styles.row}>
+              <MaterialCommunityIcons name="calendar-clock" size={18} color="#555" style={{ marginRight: 5 }} />
+              <Text style={styles.date}>{formatDate(data.date)}</Text>
+            </View>
+
+            <View style={styles.row}>
+              <MaterialCommunityIcons name="account-circle" size={22} color="#333" style={{ marginRight: 5 }} />
+              <Text style={styles.name}>{name}</Text>
+            </View>
           </View>
         );
       })}
@@ -73,20 +101,25 @@ const styles = StyleSheet.create({
   card: {
     width: cardWidth,
     borderRadius: 20,
-    paddingVertical: 30,
+    paddingVertical: 25,
     paddingHorizontal: 20,
     marginBottom: 20,
-    alignItems: "center",
+    alignItems: "flex-start",
     shadowColor: "#000",
     shadowOpacity: 0.2,
     shadowOffset: { width: 0, height: 5 },
     shadowRadius: 10,
     elevation: 5,
   },
-  bigNumber: { fontSize: 36, fontWeight: "bold", color: "#111827" },
-  subText: { fontSize: 18, color: "#555", marginTop: 5 },
-  date: { fontSize: 14, color: "#555", marginTop: 10 },
-  name: { fontSize: 20, fontWeight: "bold", color: "#111827", marginTop: 5 },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 5,
+  },
+  bigNumber: { fontSize: 28, fontWeight: "bold", color: "#111827" },
+  subText: { fontSize: 18, color: "#555" },
+  date: { fontSize: 14, color: "#555" },
+  name: { fontSize: 20, fontWeight: "bold", color: "#111827" },
   noData: { fontSize: 18, color: "#fff", textAlign: "center", marginTop: 50 },
 });
 

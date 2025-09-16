@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, Platform, Alert } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { TextInput, Button } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -17,7 +17,7 @@ const AddCounter = () => {
         if (!isRunning) return;
         const interval = setInterval(() => {
             if (mode === "countup") {
-                setTimer(prev => prev + 1);
+                setTimer((prev) => prev + 1);
             } else {
                 setTimer(Math.max(0, Math.floor((date.getTime() - new Date().getTime()) / 1000)));
             }
@@ -70,7 +70,7 @@ const AddCounter = () => {
         }
 
         if (!isRunning) {
-            setTimer(prev => prev + existingTimer);
+            setTimer((prev) => prev + existingTimer);
             setIsRunning(true);
         } else {
             setIsRunning(false);
@@ -119,20 +119,28 @@ const AddCounter = () => {
                 <MaterialCommunityIcons name="timer-outline" size={50} color="#007AFF" style={{ marginBottom: 10 }} />
                 <Text style={styles.title}>Add New Counter</Text>
                 <TextInput label="Enter Name" mode="outlined" value={name} onChangeText={handleNameChange} style={styles.input} />
+
                 <View style={styles.toggleContainer}>
-                    <Button mode={mode === "countup" ? "contained" : "outlined"} onPress={() => setMode("countup")} style={[styles.toggleButton, mode === "countup" && styles.activeToggle]}>Countup</Button>
-                    <Button mode={mode === "countdown" ? "contained" : "outlined"} onPress={() => setMode("countdown")} style={[styles.toggleButton, mode === "countdown" && styles.activeToggle]}>Countdown</Button>
+                    <Button icon="arrow-up-bold" mode={mode === "countup" ? "contained" : "outlined"} onPress={() => setMode("countup")} style={[styles.toggleButton, mode === "countup" && styles.activeToggle]} >
+                        Countup
+                    </Button>
+                    <Button icon="arrow-down-bold" mode={mode === "countdown" ? "contained" : "outlined"} onPress={() => setMode("countdown")} style={[styles.toggleButton, mode === "countdown" && styles.activeToggle]} >
+                        Countdown
+                    </Button>
                 </View>
 
                 {mode === "countdown" && (
                     <View style={{ width: "100%" }}>
                         {Platform.OS === "web" ? (
-                            <input type="datetime-local" value={formatDateForInput(date)} onChange={(e) => setDate(new Date(e.target.value))}
+                            <input
+                                type="datetime-local" value={formatDateForInput(date)} onChange={(e) => setDate(new Date(e.target.value))}
                                 style={{ width: "93%", padding: 10, borderRadius: 10, border: "1px solid #ccc" }} />
                         ) : (
                             <>
                                 {showPicker && <DateTimePicker value={date} mode="date" display="default" onChange={handleDateChange} minimumDate={new Date()} />}
-                                <Button mode="contained" onPress={() => setShowPicker(true)} style={styles.dateButton}>Select Date & Time</Button>
+                                <Button icon="calendar" mode="contained" onPress={() => setShowPicker(true)} style={styles.dateButton} >
+                                    Select Date & Time
+                                </Button>
                             </>
                         )}
                     </View>
@@ -144,16 +152,31 @@ const AddCounter = () => {
                 </View>
 
                 <View style={styles.actionButtons}>
-                    <Button mode="contained" onPress={handleStartPause} style={styles.startButton}>{isRunning ? "Pause" : "Start"}</Button>
-                    <Button mode="outlined" onPress={handleReset} style={styles.resetButton}>Reset</Button>
+                    <Button
+                        icon={isRunning ? "pause" : "play"}
+                        mode="contained"
+                        onPress={handleStartPause}
+                        style={styles.startButton}
+                    >
+                        {isRunning ? "Pause" : "Start"}
+                    </Button>
+                    <Button
+                        icon="restart"
+                        mode="outlined"
+                        onPress={handleReset}
+                        style={styles.resetButton}
+                    >
+                        Reset
+                    </Button>
                 </View>
             </View>
         </ScrollView>
     );
 };
 
-const cardWidth = Platform.OS === "web" ? 400 : 300;
+const cardWidth = Platform.OS === "web" ? 400 : 370;
 const toggleButtonWidth = (cardWidth - 50) / 2;
+
 const styles = StyleSheet.create({
     scrollContainer: { flexGrow: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#DEF7FF", paddingVertical: 50 },
     card: { width: cardWidth, padding: 20, borderRadius: 20, backgroundColor: "#fff", alignItems: "center", shadowColor: "#000", shadowOpacity: 0.1, shadowOffset: { width: 0, height: 5 }, shadowRadius: 10, elevation: 5 },
