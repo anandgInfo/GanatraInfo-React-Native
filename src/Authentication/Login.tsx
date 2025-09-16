@@ -64,20 +64,11 @@ export const Login = () => {
   return (
     <View style={styles.outerContainer}>
       <View style={styles.card}>
-        <Image source={require("@assets/image/logo-dark.png")} style={styles.logo} resizeMode="contain" />
-
+        <Image source={require("@assets/logo-dark.png")} style={styles.logo} resizeMode="contain" />
         <TextInput label="Email" value={email} onChangeText={setEmail} mode="outlined" style={styles.input} left={<TextInput.Icon icon="email" />} />
-
-        <TextInput
-          label="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={!showPassword}
-          mode="outlined"
-          style={styles.input}
-          left={<TextInput.Icon icon="lock" />}
-          right={<TextInput.Icon icon={showPassword ? "eye-off" : "eye"} onPress={() => setShowPassword(!showPassword)} />}
-        />
+        <TextInput label="Password" value={password} onChangeText={setPassword} secureTextEntry={!showPassword} mode="outlined"
+          style={styles.input} left={<TextInput.Icon icon="lock" />}
+          right={<TextInput.Icon icon={showPassword ? "eye-off" : "eye"} onPress={() => setShowPassword(!showPassword)} />} />
 
         <Button mode="contained" onPress={handleLogin} loading={loading} style={styles.button}>
           {loading ? "Logging in..." : "Login"}
